@@ -13,11 +13,15 @@ app = Flask(__name__)
 @app.route('/')
 def index():
     # 新建一个实例
-    data = SourceTotalData()
+    # data = SourceTotalData()
     # 传入一个实例，和实例的标题
-    return render_template('index.html', form=data, title=data.title)
+    return render_template('index.html')
 
-
+# #异步刷新获取数据
+@app.route('/get_total')
+def get_total():
+    total = SourceTotalData()
+    return jsonify(total.counter)
 # #异步刷新获取数据
 @app.route('/get_echart_1')
 def get_echart_1():

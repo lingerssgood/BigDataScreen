@@ -5,12 +5,18 @@
 # @Site :
 # @Describe:
 import pymysql
+import psycopg2
 import pandas as pd
 
 
-# 连接数据库
+# 连接mysql数据库
 def conn_db(host, username, password, database):
     conn = pymysql.connect(host=host, user=username, password=password, db=database, charset="utf8")
+    return conn
+
+#连接postgresql数据库
+def conn_postgre_db(host, username, password, database,port):
+    conn = psycopg2.connect(database=database, user=username, password=password, host=host, port=port)
     return conn
 
 

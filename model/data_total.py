@@ -18,18 +18,30 @@ class TotalData:
 
     # 需要安装这个包：cryptography
     def get_counter(self):
-        conn = dataBase.conn_db('127.0.0.1', 'root', 'root', 'test')
-        list = dataBase.query_data_df(conn, 'SELECT macid,useGasL FROM test.m7x LIMIT 1')
+        conn = dataBase.conn_postgre_db('10.199.127.124', 'r_wh', 'r_wh123', 'haieredw', '5432')
+        list = dataBase.query_data_df(conn, '''
+                                                select sum(ndevcnt_addinstall_1d )as "昨日网器安装量",
+                                                sum(ndevcnt_addinstall_curm )as"本月网器安装量",
+                                                sum(ndevcnt_addinstall_cury )as "年累计网器安装量",
+                                                sum(ndevcnt_install_total ) as "历史累计网器安装量"
+                                                from u_ads_wh.v_t88_install_dev_sta 
+                                                where statistics_dt =(select max(statistics_dt ) from u_ads_wh.v_t88_install_dev_sta)
+                                                '''
+                                      )
         counter = {}  # 生成词典的方式1
         # dict_a=dict()生成词典的方式2
         # a=list.loc[0, 'macid']
         # b=list.loc[0, 'useGasL']
         # iterrows/itertuples/zip
         for index, row in list.iterrows():
-            name = row['macid']
-            value = row['useGasL']
-            counter['name'] = name
-            counter['value'] = value
+            day_value = row['昨日网器安装量']
+            month_value=row['本月网器安装量']
+            year_value=row['年累计网器安装量']
+            history_value=row['历史累计网器安装量']
+            counter['day_value'] = day_value
+            counter['month_value'] = month_value
+            counter['year_value'] = year_value
+            counter['history_value'] = history_value
         return counter
 
 
