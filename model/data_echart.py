@@ -7,15 +7,12 @@
 class EchartData:
     def __init__(self):
         self.echart1_data = {
-            'title': '行业分布',
+            'title': '网器数据',
             'data': [
-                {"name": "商超门店", "value": 47},
-                {"name": "教育培训", "value": 52},
-                {"name": "房地产", "value": 90},
-                {"name": "生活服务", "value": 84},
-                {"name": "汽车销售", "value": 99},
-                {"name": "旅游酒店", "value": 37},
-                {"name": "五金建材", "value": 2},
+                {"name": "网器绑定量", "value": 156254}
+                # {"name": "网器销售量", "value": 402317},
+                # {"name": "网器在线量", "value": 365984}
+
             ]
         }
         self.echart2_data = {
@@ -111,8 +108,8 @@ class EchartData:
         echart = {
             'title': data.get('title'),
             # 第一次get获取到的是许多键值对，所以需要对每个键值对再次get
-            'xAxis': [i.get("name") for i in data.get('data')],
-            'series': [i.get("value") for i in data.get('data')]
+            'name': data.get('data')[0].get('name'),
+            'value': data.get('data')[0].get('value')
         }
         # 返回的是标题和对应的数据，并没有说用什么方式展现！
         return echart
