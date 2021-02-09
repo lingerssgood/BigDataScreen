@@ -22,6 +22,7 @@ def index():
 def get_total():
     total = SourceTotalData()
     return jsonify(total.counter)
+
 # #异步刷新获取数据
 @app.route('/get_echart_1')
 def get_echart_1():
